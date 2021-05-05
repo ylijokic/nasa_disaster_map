@@ -190,7 +190,7 @@ const Map = ({ center, zoom, eventData }) => {
     return (
         <div className="map">
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyDezwZXmE9RP-9dh7qYEaQ2IuXBRQLVtXo'}}
+                bootstrapURLKeys={{ key: `${process.env.REACT_APP_WEATHER_API_KEY}`}}
                 defaultCenter={ center }
                 defaultZoom={ zoom }
                 options={getMapOptions}
