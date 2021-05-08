@@ -19,9 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import Map from './Map'
 import Loader from './Loader'
 import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 
 
 const drawerWidth = 240;
@@ -90,6 +88,11 @@ const Header = ({ loading, eventData }) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
 
+    const [state, setState] = useState({
+      fire: true,
+      volcano: true,
+    });
+
     const handleDrawerOpen = () => {
         console.log(open)
         setOpen(true);
@@ -97,6 +100,12 @@ const Header = ({ loading, eventData }) => {
 
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+      // console.log(event.target.name)
+      // console.log(event.target.checked)
     };
 
     return (
@@ -129,7 +138,12 @@ const Header = ({ loading, eventData }) => {
                       <ListItemIcon><WhatshotIcon /></ListItemIcon>
                       <FormControlLabel
                         value="fire"
-                        control={<Switch color="primary" />}
+                        control={<Switch 
+                          color="primary" 
+                          checked={state.fire}
+                          onChange={handleChange} 
+                          name="fire"
+                        />}
                         label="Fire Data"
                         labelPlacement="start"
                       />
@@ -139,7 +153,12 @@ const Header = ({ loading, eventData }) => {
                       <ListItemIcon><FilterHdrIcon /></ListItemIcon>
                       <FormControlLabel
                         value="volcano"
-                        control={<Switch color="primary" />}
+                        control={<Switch 
+                          color="primary" 
+                          checked={state.volcano}
+                          onChange={handleChange} 
+                          name="volcano"
+                        />}
                         label="Volcano Data"
                         labelPlacement="start"
                       />
