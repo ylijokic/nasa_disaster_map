@@ -5,7 +5,7 @@ import { useState } from 'react'
 import locationIcon from '@iconify/icons-mdi/fire'
 import volcano15 from '@iconify-icons/maki/volcano-15';
 
-const Map = ({ center, zoom, eventData }) => {
+const Map = ({ center, zoom, eventData, switchState }) => {
 
     const [locationInfo, setLocationInfo] = useState(null)
     const [active, setActive] = useState(false)
@@ -16,7 +16,7 @@ const Map = ({ center, zoom, eventData }) => {
 
     const markers = eventData.map((ev, index) => {
         let coordinates = ev.geometries[0].coordinates
-        if (ev.categories[0].id === 8) {
+        if (ev.categories[0].id === 8 && switchState.fire) {
             return <LocationMarker 
                         key = {index}
                         lat={ev.geometries[0].coordinates[1]} 
@@ -28,7 +28,7 @@ const Map = ({ center, zoom, eventData }) => {
                         }
                         icon={locationIcon}
                     />
-        } else if (ev.categories[0].id === 12) {
+        } else if (ev.categories[0].id === 12 && switchState.volcano) {
             return <LocationMarker 
                         key = {index}
                         lat={coordinates.length === 2 ? coordinates[1] : null}

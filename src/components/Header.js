@@ -180,7 +180,7 @@ const Header = ({ loading, eventData }) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                { !loading ? <Map eventData={eventData}/> : <Loader/>}
+                { !loading ? <Map eventData={eventData} switchState={state}/> : <Loader/>}
             </main>
         </div>
     )
