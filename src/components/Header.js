@@ -25,46 +25,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    zIndex: 100,
-    backgroundColor: '#777777',
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -86,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ loading, eventData }) => {
     const theme = useTheme();
     const classes = useStyles();
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [mapTheme, setMapTheme] = useState("");
 
     const [state, setState] = useState({
       fire: true,
@@ -104,8 +65,6 @@ const Header = ({ loading, eventData }) => {
 
     const handleChange = (event) => {
       setState({ ...state, [event.target.name]: event.target.checked });
-      // console.log(event.target.name)
-      // console.log(event.target.checked)
     };
 
     return (
@@ -122,12 +81,12 @@ const Header = ({ loading, eventData }) => {
                 <h1><Icon icon={locationIcon}/>Wildfire & Volcano Tracker (Powered by NASA)<Icon icon={locationIcon}/></h1>
             </Toolbar>
             <Drawer
-                className={classes.drawer}
+                className="drawer"
                 variant="persistent"
                 anchor="left"
                 open={open}
             >
-            <div className={classes.drawerHeader}>
+            <div className="drawerHeader">
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
@@ -166,8 +125,8 @@ const Header = ({ loading, eventData }) => {
                     </List>
                     <Divider />
                     <List>
-                    {['Dark Map', 'Satellite Map', 'Street Map'].map((text, index) => (
-                        <ListItem button key={text}>
+                    {['Dark', 'Retro', 'Street'].map((text, index) => (
+                        <ListItem button key={text}  onClick={() => setMapTheme(text)}>
                         <ListItemIcon>{index % 2 === 0 ? <WhatshotIcon /> : <FilterHdrIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                         </ListItem>
@@ -179,8 +138,8 @@ const Header = ({ loading, eventData }) => {
                 [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
-                { !loading ? <Map eventData={eventData} switchState={state}/> : <Loader/>}
+                <div className="drawerHeader" />
+                { !loading ? <Map eventData={eventData} switchState={state} theme={mapTheme}/> : <Loader/>}
             </main>
         </div>
     )
