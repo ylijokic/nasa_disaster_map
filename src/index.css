@@ -4,6 +4,20 @@ body {
   overflow: hidden;
 }
 
+.drawer {
+    width: 240px;
+    flex-shrink: 0;
+    z-index: 100;
+    background-color: '#777777';
+}
+
+.drawerHeader {
+  display: 'flex';
+  align-items: 'center';
+  padding: 1rem;
+  justify-content: 'flex-end';
+}
+
 .header {
   padding: 10px;
   background-color: firebrick;
@@ -33,7 +47,7 @@ body {
 
 .fire-icon {
   color: red;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .fire-icon :hover{

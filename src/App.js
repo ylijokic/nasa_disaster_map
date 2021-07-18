@@ -20,7 +20,7 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div className="container">
       <Header loading={loading} eventData={eventData}/>
     </div>
   )
