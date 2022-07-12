@@ -16,12 +16,12 @@ const Map = ({ center, zoom, eventData, switchState, theme }) => {
     }
 
     const markers = eventData.map((ev, index) => {
-        let coordinates = ev.geometries[0].coordinates
-        if (ev.categories[0].id === 8 && switchState.fire) {
+        let coordinates = ev.geometry[0].coordinates
+        if (ev.categories[0].id === "wildfires" && switchState.fire) {
             return <LocationMarker 
                         key = {index}
-                        lat={ev.geometries[0].coordinates[1]} 
-                        lng={ev.geometries[0].coordinates[0]}
+                        lat={ev.geometry[0].coordinates[1]} 
+                        lng={ev.geometry[0].coordinates[0]}
                         onClick={() => {
                             setLocationInfo({ id: ev.id, title: ev.title})
                             setActive(true)
@@ -29,7 +29,7 @@ const Map = ({ center, zoom, eventData, switchState, theme }) => {
                         }
                         icon={locationIcon}
                     />
-        } else if (ev.categories[0].id === 12 && switchState.volcano) {
+        } else if (ev.categories[0].id === "volcanoes" && switchState.volcano) {
             return <LocationMarker 
                         key = {index}
                         lat={coordinates.length === 2 ? coordinates[1] : null}
